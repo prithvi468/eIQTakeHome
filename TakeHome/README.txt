@@ -1,0 +1,64 @@
+README File
+
+Application Working:-
+Python flask application (Cloud Url: http://34.75.68.20/ )
+for logic I used pandas to read and validate data from input stream .
+Dataframe makes the logical code easier/simplified and makes it more readable
+For displaying the relevant msgs I used to feasibility offered by Jinja 
+
+
+//For Css design I used Bulma CSS which offers predefined templates and custom classes
+to give a decent layout to the app
+
+UI flow /Application Steps
+Click on the choose file button
+Select the appropriate file
+Click on Upload button
+See the desired response 
+
+
+
+For Requirements.txt 
+pip3 freeze > requirements.txt
+
+
+
+Docker commands
+
+First create the docker file 
+cd takehome
+For local image-
+docker build .
+docker images
+docker run 8c25e679a0d8
+
+
+For gcp-
+gcloud init
+//docker image build and push on gcr
+gcloud builds --project takehome-305501 submit --tag gcr.io/takehome-305501/takehome:v2 . 
+//Output
+ID                                    CREATE_TIME                DURATION  SOURCE                                                                                    IMAGES                              STATUS
+ee83763d-b2c8-4fef-8cde-d26580cfddc2  2021-02-21T02:51:25+00:00  41S       gs://takehome-305501_cloudbuild/source/1613875884.6-e7dc535e69bb4e0185c7610ec14f13b3.tgz  gcr.io/takehome-305501/takehome:v2  SUCCESS
+
+//Did this but then used the gcp cloud console as a substitute to the yaml file configuration 
+gcloud components install kubectl //optional to enable kubectl on local
+
+//In the gcr login terminal performed the following commands
+gcloud container clusters create takehome-cluster // setup the cluster for kubernetes
+gcloud config set compute/zone us-east1-b // setting the zone / region for our cluster
+gcloud compute instances list
+kubectl create deployment takehome --image=gcr.io/takehome-305501/takehome:v2 // This will create a deployment named takehome using takehome:v2 image (config)
+
+//created inoly one pod
+kubectl scale deployment takehome --replicas=1 // create pod replica
+//service type is loadbalancer , I could replicate more pods to handle traffic incase of heavy file uploads 
+kubectl expose deployment takehome --name=takehome-service --type=LoadBalancer --port 8080 --target-port 5000 // exposing service
+
+request
+	!
+ingress
+	!
+pod1 pod2 pod3
+
+

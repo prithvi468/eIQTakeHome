@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <title> TakeHome assignment eIQ Mobility</title>
+    <style>
+    .flash-message {
+        margin-top: 1.5rem;
+    }
+    </style>
+</head>
+<body>
+<section class="hero is-link is-fullheight">
+  <p class="title is-1 is-spaced has-background-warning has-text-black">eIQ Mobility Take Home Assessment</p>
+    <div class="hero-body flash-message">
+        <div class="">
+            <p class="title">
+                CSV File Checker
+            </p>
+            <form action="/checkCSV" method=post enctype=multipart/form-data>
+                <input type=file name=file class="button is-warning">
+                <input type=submit value=Upload class="button is-success">
+            </form>
+            {%with messages = get_flashed_messages()%}
+            {%if messages%}
+            {%for message in messages%}
+            <div class="notification is-primary is-light flash-message">
+                {{message}}
+            </div>
+            {%endfor%}
+            {%endif%}
+            {%endwith%}
+        </div>
+    </div>
+</section>
+</body>
+
+
+</html>
+    
